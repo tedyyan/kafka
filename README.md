@@ -67,7 +67,7 @@ In the CI environment, we set non-default values to enable retries. Each failed 
 
     ./gradlew test -PmaxTestRetries=1 -PmaxTestRetryFailures=3
 
-In the CI environment, the value of `-PmaxQuarantineTestRetryFailures` is "zero
+In the CI environment, the value of `-PmaxQuarantineTestRetryFailures` is "zero"
 Additionally, quarantined tests are automatically retried three times up to a total of
 20 retries per run. This is controlled by similar parameters.
 
