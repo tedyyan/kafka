@@ -63,13 +63,12 @@ And you should see `INFO` level logs in the file under the `clients/build/test-r
 
 ### Specifying test retries ###
 By default, retry-related configurations have a value of zero, meaning tests are not retried unless specified.
-In the CI environment, we set non-default values to enable retries. Each failed test is retried once up to a maximum of three total retries per test run. Tests are retried at the end of the test task. Adjust these parameters in the following way:
+We should set non-default values to enable retries in tests. Each failed test is retried once up to a maximum of three total retries per test run. Tests are retried at the end of the test task. Adjust these parameters in the following way:
 
     ./gradlew test -PmaxTestRetries=1 -PmaxTestRetryFailures=3
 
-In the CI environment, the value of `-PmaxQuarantineTestRetryFailures` is "zero"
-Additionally, quarantined tests are automatically retried three times up to a total of
-20 retries per run. This is controlled by similar parameters.
+The default value of `-PmaxQuarantineTestRetryFailures` is zero.
+Additionally, quarantined tests are automatically retried three times up to a total of 20 retries per run. This is controlled by similar parameters.
 
     ./gradlew quarantinedTest -PmaxQuarantineTestRetries=3 -PmaxQuarantineTestRetryFailures=20
 
