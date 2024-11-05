@@ -62,13 +62,13 @@ to `log4j.logger.org.apache.kafka=INFO` and then run:
 And you should see `INFO` level logs in the file under the `clients/build/test-results/test` directory.
 
 ### Specifying test retries ###
-By default, retry-related configurations have a value of zero, meaning tests are not retried unless specified.
-We should set non-default values to enable retries in tests. Each failed test is retried once up to a maximum of three total retries per test run. Tests are retried at the end of the test task. Adjust these parameters in the following way:
+Retries are disabled by default, but you can set maxTestRetryFailures and maxTestRetries to enable retries.
+
+he following example declares -PmaxTestRetries=1 and -PmaxTestRetryFailures=3 to enable a failed test to be retried once, with a total retry limit of 3.
 
     ./gradlew test -PmaxTestRetries=1 -PmaxTestRetryFailures=3
 
-The default value of `-PmaxQuarantineTestRetryFailures` is zero.
-Additionally, quarantined tests are automatically retried three times up to a total of 20 retries per run. This is controlled by similar parameters.
+The quarantinedTest task also has no retries by default, but you can set maxQuarantineTestRetries and maxQuarantineTestRetryFailures to enable retries, similar to the test task.
 
     ./gradlew quarantinedTest -PmaxQuarantineTestRetries=3 -PmaxQuarantineTestRetryFailures=20
 
