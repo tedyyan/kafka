@@ -2620,11 +2620,11 @@ class KafkaApis(val requestChannel: RequestChannel,
   }
 
   def handleCreateAcls(request: RequestChannel.Request): Unit = {
-    throw new InvalidRequestException("CreateAcls is deprecated and does not support.")
+    throw KafkaApis.shouldNeverReceive(request)
   }
 
   def handleDeleteAcls(request: RequestChannel.Request): Unit = {
-    throw new InvalidRequestException("DeleteAcls is deprecated and does not support.")
+    throw KafkaApis.shouldNeverReceive(request)
   }
 
   def handleOffsetForLeaderEpochRequest(request: RequestChannel.Request): Unit = {
