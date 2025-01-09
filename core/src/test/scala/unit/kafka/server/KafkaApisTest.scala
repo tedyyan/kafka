@@ -1197,18 +1197,6 @@ class KafkaApisTest extends Logging {
   }
 
   @Test
-  def testCreateAclWithForwarding(): Unit = {
-    val requestBuilder = new CreateAclsRequest.Builder(new CreateAclsRequestData())
-    testForwardableApi(ApiKeys.CREATE_ACLS, requestBuilder)
-  }
-
-  @Test
-  def testDeleteAclWithForwarding(): Unit = {
-    val requestBuilder = new DeleteAclsRequest.Builder(new DeleteAclsRequestData())
-    testForwardableApi(ApiKeys.DELETE_ACLS, requestBuilder)
-  }
-
-  @Test
   def testCreateDelegationTokenWithForwarding(): Unit = {
     val requestBuilder = new CreateDelegationTokenRequest.Builder(new CreateDelegationTokenRequestData())
     testForwardableApi(ApiKeys.CREATE_DELEGATION_TOKEN, requestBuilder)
