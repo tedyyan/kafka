@@ -1197,6 +1197,18 @@ class KafkaApisTest extends Logging {
   }
 
   @Test
+  def testCreateAclWithForwarding(): Unit = {
+    val requestBuilder = new CreateAclsRequest.Builder(new CreateAclsRequestData())
+    testForwardableApi(ApiKeys.CREATE_ACLS, requestBuilder)
+  }
+
+  @Test
+  def testDeleteAclWithForwarding(): Unit = {
+    val requestBuilder = new DeleteAclsRequest.Builder(new DeleteAclsRequestData())
+    testForwardableApi(ApiKeys.DELETE_ACLS, requestBuilder)
+  }
+
+  @Test
   def testCreateDelegationTokenWithForwarding(): Unit = {
     val requestBuilder = new CreateDelegationTokenRequest.Builder(new CreateDelegationTokenRequestData())
     testForwardableApi(ApiKeys.CREATE_DELEGATION_TOKEN, requestBuilder)
@@ -10847,6 +10859,19 @@ class KafkaApisTest extends Logging {
     verifyShouldAlwaysForwardErrorMessage(kafkaApis.handleDeleteTopicsRequest)
   }
 
+  @Test
+  def testRaftShouldAlwaysForwardCreateAcls(): Unit = {
+    metadataCache = MetadataCache.kRaftMetadataCache(brokerId, () => KRaftVersion.KRAFT_VERSION_0)
+    kafkaApis = createKafkaApis(raftSupport = true)
+    verifyShouldAlwaysForwardErrorMessage(kafkaApis.handleCreateAcls)
+  }
+
+  @Test
+  def testRaftShouldAlwaysForwardDeleteAcls(): Unit = {
+    metadataCache = MetadataCache.kRaftMetadataCache(brokerId, () => KRaftVersion.KRAFT_VERSION_0)
+    kafkaApis = createKafkaApis(raftSupport = true)
+    verifyShouldAlwaysForwardErrorMessage(kafkaApis.handleDeleteAcls)
+  }
 
   @Test
   def testEmptyLegacyAlterConfigsRequestWithKRaft(): Unit = {
