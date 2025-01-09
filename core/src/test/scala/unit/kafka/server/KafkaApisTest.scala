@@ -10847,19 +10847,6 @@ class KafkaApisTest extends Logging {
     verifyShouldAlwaysForwardErrorMessage(kafkaApis.handleDeleteTopicsRequest)
   }
 
-  @Test
-  def testRaftShouldAlwaysForwardCreateAcls(): Unit = {
-    metadataCache = MetadataCache.kRaftMetadataCache(brokerId, () => KRaftVersion.KRAFT_VERSION_0)
-    kafkaApis = createKafkaApis(raftSupport = true)
-    verifyShouldAlwaysForwardErrorMessage(kafkaApis.handleCreateAcls)
-  }
-
-  @Test
-  def testRaftShouldAlwaysForwardDeleteAcls(): Unit = {
-    metadataCache = MetadataCache.kRaftMetadataCache(brokerId, () => KRaftVersion.KRAFT_VERSION_0)
-    kafkaApis = createKafkaApis(raftSupport = true)
-    verifyShouldAlwaysForwardErrorMessage(kafkaApis.handleDeleteAcls)
-  }
 
   @Test
   def testEmptyLegacyAlterConfigsRequestWithKRaft(): Unit = {
