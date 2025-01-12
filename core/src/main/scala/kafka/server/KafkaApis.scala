@@ -223,8 +223,8 @@ class KafkaApis(val requestChannel: RequestChannel,
         case ApiKeys.WRITE_TXN_MARKERS => handleWriteTxnMarkersRequest(request, requestLocal)
         case ApiKeys.TXN_OFFSET_COMMIT => handleTxnOffsetCommitRequest(request, requestLocal).exceptionally(handleError)
         case ApiKeys.DESCRIBE_ACLS => handleDescribeAcls(request)
-        case ApiKeys.CREATE_ACLS => maybeForwardToController(request, handleCreateAcls)
-        case ApiKeys.DELETE_ACLS => maybeForwardToController(request, handleDeleteAcls)
+        case ApiKeys.CREATE_ACLS => maybeForwardToController(request, shouldAlwaysForward)
+        case ApiKeys.DELETE_ACLS => maybeForwardToController(request, shouldAlwaysForward)
         case ApiKeys.ALTER_CONFIGS => handleAlterConfigsRequest(request)
         case ApiKeys.DESCRIBE_CONFIGS => handleDescribeConfigsRequest(request)
         case ApiKeys.ALTER_REPLICA_LOG_DIRS => handleAlterReplicaLogDirsRequest(request)
@@ -2617,14 +2617,6 @@ class KafkaApis(val requestChannel: RequestChannel,
 
   def handleDescribeAcls(request: RequestChannel.Request): Unit = {
     aclApis.handleDescribeAcls(request)
-  }
-
-  def handleCreateAcls(request: RequestChannel.Request): Unit = {
-    throw KafkaApis.shouldAlwaysForward(request)
-  }
-
-  def handleDeleteAcls(request: RequestChannel.Request): Unit = {
-    throw KafkaApis.shouldAlwaysForward(request)
   }
 
   def handleOffsetForLeaderEpochRequest(request: RequestChannel.Request): Unit = {
