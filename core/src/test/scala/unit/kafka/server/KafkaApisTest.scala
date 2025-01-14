@@ -9889,12 +9889,6 @@ class KafkaApisTest extends Logging {
     request
   }
 
-  private def verifyShouldAlwaysForwardErrorMessage(handler: RequestChannel.Request => Unit): Unit = {
-    val request = createMockRequest()
-    val e = assertThrows(classOf[UnsupportedVersionException], () => handler(request))
-    assertEquals(KafkaApis.shouldAlwaysForward(request).getMessage, e.getMessage)
-  }
-
   @Test
   def testEmptyLegacyAlterConfigsRequestWithKRaft(): Unit = {
     val request = buildRequest(new AlterConfigsRequest(new AlterConfigsRequestData(), 1.toShort))
