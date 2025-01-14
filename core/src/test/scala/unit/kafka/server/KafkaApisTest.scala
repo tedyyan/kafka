@@ -9881,14 +9881,6 @@ class KafkaApisTest extends Logging {
     assertEquals("Ongoing", transactionState.transactionState)
   }
 
-  private def createMockRequest(): RequestChannel.Request = {
-    val request: RequestChannel.Request = mock(classOf[RequestChannel.Request])
-    val requestHeader: RequestHeader = mock(classOf[RequestHeader])
-    when(request.header).thenReturn(requestHeader)
-    when(requestHeader.apiKey()).thenReturn(ApiKeys.values().head)
-    request
-  }
-
   @Test
   def testEmptyLegacyAlterConfigsRequestWithKRaft(): Unit = {
     val request = buildRequest(new AlterConfigsRequest(new AlterConfigsRequestData(), 1.toShort))
